@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/api/shared/http/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules index.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/index.ts",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
@@ -36,7 +36,7 @@
     "express-async-errors": "^3.1.1",
     "sqlite3": "^5.1.7",
     "swagger-ui-express": "^5.0.1",
-    "typeorm": "^0.2.29",
+    "typeorm": "^0.3.11",
     "yamljs": "^0.3.0"
   }
 }
