@@ -11,7 +11,11 @@ export const AppDataSource = new DataSource({
     username: process.env.USER,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
-    synchronize: true,
-    entities: [], // indicando pro meu banco de dados quais entidades eu tenho
+    synchronize: false,
+    migrations: ["./src/api/shared/typeorm/migrations/*.ts"],
+    entities: ["./src/api/**/**/typeorm/entities/*.ts"], // indicando pro meu banco de dados quais entidades eu tenho
+    cli:{
+        migrationsDir: "./src/api/shared/typeorm/migrations"
+    },
     logging: true
 });
