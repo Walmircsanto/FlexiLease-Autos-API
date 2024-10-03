@@ -1,6 +1,10 @@
+import dotenv from "dotenv";
+import * as process from "node:process";
+dotenv.config();
+
 export default {
     jwt: {
-        secret: "44378529cd2ec4c7647f847e1b012983",
-        expiresIn: "12h",
+        secret:process.env.JWT_SECRET,
+        expiresIn: process.env.JWT_EXPIRES,
     },
 };
