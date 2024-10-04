@@ -47,6 +47,9 @@
     "paths": {
       "@config/*": [
         "src/config/*"
+      ],
+      "@modules/*": [
+        "src/api/shared/*"
       ]
     },
     /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
