@@ -1,16 +1,14 @@
-import { EntityRepository, Repository } from 'typeorm';
+
 import User from "../entities/User";
+import {AppDataSource} from "@modules/typeorm/connection";
 
-@EntityRepository(User)
-class UserRepository extends Repository<User> {
-
-    public async findByEmail(email: string){
+export const UserRepository = AppDataSource.getRepository(User).extend({
+    async findByEmail(email: string) {
         const user = await this.findOne({
-            where:{ email }
+            where: {email}
         });
-        return user
+        return user;
     }
-
-}
+})
 
 export default  UserRepository;
