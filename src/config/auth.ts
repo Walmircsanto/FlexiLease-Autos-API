@@ -4,7 +4,7 @@ dotenv.config();
 
 export default {
     jwt: {
-        secret:process.env.JWT_SECRET || "assinatura",
-        expiresIn: process.env.JWT_EXPIRES || 1,
+        secret: String(process.env.JWT_SECRET),
+        expiresIn: String(process.env.JWT_EXPIRE_IN),
     },
 };
