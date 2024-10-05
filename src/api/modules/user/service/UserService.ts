@@ -29,14 +29,14 @@ interface  IRequestauthenticateUser{
 
 class UserService {
 
-    public async createUser({name, cpf,birth, cep, email, password}: IRequest) {
+    public async createUser({name, cpf, birth, cep, email, password}: IRequest) {
         const userRepository = UserRepository;
 
         const userEmailExist = await userRepository.findByEmail(email);
 
 
         if (userEmailExist) {
-           throw  new AppError("user with this email already exists", "Bad Request", 400)
+            throw new AppError("user with this email already exists", "Bad Request", 400)
         }
 
         const user = userRepository.create({
@@ -45,29 +45,30 @@ class UserService {
             birth,
             cep,
             email,
-            password});
+            password
+        });
 
         await userRepository.save(user)
         return user;
 
     }
 
-    public async userSession({email, password}: IRequestauthenticateUser){
+    public async createSessionUser({email, password}: IRequestauthenticateUser) {
         const userRepository = UserRepository;
         const user = await userRepository.findByEmail(email);
 
-        if(!user){
-            throw  new AppError("user not found", "Bad Request", 400)
+        if (!user) {
+            throw new AppError("user not found", "Bad Request", 400)
         }
 
+        const id = user.id.toString();
 
-        const token = sign({}, authConfig.jwt.secret, {
-            subject: user.id.toString(),
+        console.log(authConfig.jwt.secret)
+        console.log(authConfig.jwt.expiresIn)
+        const token = sign({id}, authConfig.jwt.secret, {
             //to indicando que esse token vai ter validade de x dias/horas
-            expiresIn:parseInt(<string>authConfig.jwt.expiresIn),
+            expiresIn: parseInt('1h'),
         });
-
-        console.log(token)
 
         return {
             user,
@@ -77,5 +78,3 @@ class UserService {
     }
 
 }
-
-export default UserService;
