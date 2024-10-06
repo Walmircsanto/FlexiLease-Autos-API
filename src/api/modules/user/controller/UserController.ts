@@ -9,7 +9,7 @@ export default class UserController {
         const userService = new UserService();
 
         const user = await userService.createUser({name, cpf, birth, cep, email, password})
-        return res.status(200).json(user);
+        return res.status(201).json(user);
     }
 
     public testeStringToken(req: Request, res: Response) {
