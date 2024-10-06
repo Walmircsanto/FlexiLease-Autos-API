@@ -1,10 +1,13 @@
 
-import { getCustomRepository } from 'typeorm';
+
 import UserRepository from "../typeorm/repositories/UserRepository";
 import User from "../typeorm/entities/User";
 import { sign } from "jsonwebtoken";
 import AppError from "../../../shared/errors/AppError";
 import authConfig from "@config/auth";
+import cepUser from "./model/cepUser";
+import UserMapper from "../DTO/mapper/UserMapper";
+
 
 
 
@@ -47,9 +50,13 @@ class UserService {
             email,
             password
         });
-
         await userRepository.save(user)
-        return user;
+
+        const useMapper = new UserMapper();
+
+        const userResponse  = await useMapper.convertToEntityUser(user);
+        console.log(userResponse)
+        return userResponse;
 
     }
 
@@ -77,4 +84,8 @@ class UserService {
 
     }
 
+    public verifyYear(){
+
+    }
 }
+export default UserService;
