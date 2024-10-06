@@ -77,11 +77,7 @@ class UserService {
             expiresIn: parseInt('1h'),
         });
 
-        return {
-            user,
-            token,
-        };
-
+    
     }
 
     public verifyYear(){
