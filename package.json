@@ -40,6 +40,7 @@
     "jsonwebtoken": "^9.0.2",
     "sqlite3": "^5.1.7",
     "swagger-ui-express": "^5.0.1",
+    "tsyringe": "^4.8.0",
     "typeorm": "^0.3.11",
     "yamljs": "^0.3.0"
   }
