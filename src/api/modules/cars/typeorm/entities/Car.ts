@@ -27,11 +27,7 @@ class Car{
     @Column()
     valuePerDay: number
 
-    @Column({
-        type:'enum',
-        enum: acessories,
-        default: acessories.FourPorts
-    })
+    @Column({type:'varchar'})
     acessories: Accessory[]
 
     @Column()
@@ -46,3 +42,5 @@ class Car{
     updated_at: Date;
 
 }
+
+export default Car;
