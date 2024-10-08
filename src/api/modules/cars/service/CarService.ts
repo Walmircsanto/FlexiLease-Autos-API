@@ -1,17 +1,20 @@
+import 'reflect-metadata';
 import {AppDataSource} from "@modules/typeorm/connection";
 import Car from "../typeorm/entities/Car";
-
 import {Repository} from "typeorm";
 import IRequestCar from "../DTO/RequestCarDTO";
 import {CarRepository} from "../typeorm/repositories/CarRepository";
 import AppError from "@modules/errors/AppError";
+import {injectable, registry} from "tsyringe";
+import CarController from "../controller/CarController";
+
 
 interface IReqParam {
     id: number;
 }
 
-
-class CarService   {
+@injectable()
+class CarService{
     private ormRepository: Repository<Car>;
 
 
@@ -53,7 +56,7 @@ class CarService   {
     public async updateCars({id}: IReqParam,{ model, color, year, valuePerDay, acessories = [], numberOfPassengers }: IRequestCar){
       const carRepository = CarRepository
 
-        if (typeof id === "string"){
+        if (typeof id !== "number"){
          throw new AppError("Id is not of type number", "Bad request", 400)
         }
 
@@ -75,8 +78,34 @@ class CarService   {
         return car;
     }
 
+    public async findCarId({id}:IReqParam){
+
+        const carRepository = CarRepository
+
+        // @ts-ignore
+        const car = await carRepository.findOne(id);
+        if(!car){
+            throw new AppError("car not found", "not found", 404)
+        }
+
+        return car;
+    }
 
 
+
+   public async delete({id}: IReqParam){
+
+        const carRepository = CarRepository
+
+       const car =  await carRepository.findOne({
+           where: {id: id}
+       });
+
+       if(!car){
+           throw new AppError("car not found", "not found", 404)
+       }
+       await carRepository.delete(id);
+   }
 }
 
 export default CarService;
