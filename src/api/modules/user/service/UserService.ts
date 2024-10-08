@@ -9,8 +9,6 @@ import cepUser from "./model/cepUser";
 import UserMapper from "../DTO/mapper/UserMapper";
 
 
-
-
 interface IRequest {
     name:string,
     cpf:string,
@@ -55,7 +53,6 @@ class UserService {
         const useMapper = new UserMapper();
 
         const userResponse  = await useMapper.convertToEntityUser(user);
-        console.log(userResponse)
         return userResponse;
 
     }
@@ -74,10 +71,14 @@ class UserService {
         console.log(authConfig.jwt.expiresIn)
         const token = sign({id}, authConfig.jwt.secret, {
             //to indicando que esse token vai ter validade de x dias/horas
-            expiresIn: parseInt('1h'),
+            expiresIn: authConfig.jwt.expiresIn,
         });
 
-    
+        return{
+            user,
+            token
+        }
+
     }
 
     public verifyYear(){
