@@ -23,5 +23,6 @@ carRoutes.post(
 );
 
 carRoutes.get("/", carController.finAllCars)
+carRoutes.put("/:id", carController.updateCar)
 
 export default carRoutes;
