@@ -1,11 +1,13 @@
 import { Router } from "express";
 import { celebrate, Joi, errors, Segments } from "celebrate";
-import { container } from "tsyringe";
+import container from '../../../../config/dependencyInjection'
 import CarController from "../controller/CarController";
+import validateId from "../middlewares/validateId";
+import CarService from "../service/CarService";
 
 const carRoutes = Router();
 
-const carController = new CarController()
+const carController = container.resolve(CarController)
 
 carRoutes.post(
     "/",
@@ -19,10 +21,10 @@ carRoutes.post(
             numberOfPassengers: Joi.number().required(),
         }),
     }),
-   carController.createrCar
+   carController.createCar
 );
-
 carRoutes.get("/", carController.finAllCars)
-carRoutes.put("/:id", carController.updateCar)
+carRoutes.put("/:id", validateId, carController.updateCar)
+carRoutes.get("/:id", validateId, carController.findById)
 
 export default carRoutes;
