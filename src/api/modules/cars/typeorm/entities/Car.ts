@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import Accessory, { acessories} from "../../models/accessories";
+import {Reservation} from "../../../reserve/typeorm/entities/reserve";
 
 @Entity()
 class Car{
@@ -32,6 +33,9 @@ class Car{
 
     @Column()
     numberOfPassengers:number;
+
+    @OneToMany(() => Reservation, (reservation) => reservation.user)
+    reservations: Reservation[];
 
     @CreateDateColumn()
     @Exclude()
