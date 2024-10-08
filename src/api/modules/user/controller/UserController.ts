@@ -14,6 +14,8 @@ export default class UserController {
 
     public testeStringToken(req: Request, res: Response) {
 
+        const {idUser} = req.body
+        console.log(req.body)
         return res.json("Deu certoo")
     }
 }
