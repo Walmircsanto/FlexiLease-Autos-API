@@ -7,6 +7,7 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import {Reservation} from "../../../reserve/typeorm/entities/reserve";
 
 @Entity()
 class User{
@@ -32,6 +33,9 @@ class User{
 
     @Column()
     password:string;
+
+    @OneToMany(() => Reservation, (reservation) => reservation.user)
+    reservations: Reservation[];
 
     @CreateDateColumn()
     @Exclude()
