@@ -18,8 +18,12 @@ export default function userAuthenticated(req: Request, res: Response, next: Nex
     try {
         // esse metodo pega o token, e a chave hash que foi especificada, verificando se esse token foi
         // criado com essa secret
-        const decodeToken = verify(token, authConfig.jwt.secret);
+        const decodeToken = verify(
+            token, authConfig.jwt.secret) as {[key: string]: any};
 
+        const idUser = decodeToken.id
+
+        req.body.userId = idUser
         return next();
     } catch {
         throw new AppError("Invalid Token", "Unauthorized", 401);
