@@ -71,7 +71,7 @@ class UserService {
         console.log(authConfig.jwt.expiresIn)
         const token = sign({id}, authConfig.jwt.secret, {
             //to indicando que esse token vai ter validade de x dias/horas
-            expiresIn: authConfig.jwt.expiresIn,
+            expiresIn: '12h',
         });
 
         return{
