@@ -6,6 +6,11 @@ import IRequestCar from "../DTO/RequestCarDTO";
 import {CarRepository} from "../typeorm/repositories/CarRepository";
 import AppError from "@modules/errors/AppError";
 
+interface IReqParam {
+    id: number;
+}
+
+
 class CarService   {
     private ormRepository: Repository<Car>;
 
@@ -44,6 +49,34 @@ class CarService   {
     public async finAllCars(){
         return await CarRepository.find();
     }
+
+    public async updateCars({id}: IReqParam,{ model, color, year, valuePerDay, acessories = [], numberOfPassengers }: IRequestCar){
+      const carRepository = CarRepository
+
+        if (typeof id === "string"){
+         throw new AppError("Id is not of type number", "Bad request", 400)
+        }
+
+       const car = await carRepository.finById(id);
+        if(!car){
+            throw new AppError("car not found", "not found", 404)
+        }
+
+        car.id = id
+        car.model = model
+        car.color = color
+        car.year = year
+        car.valuePerDay = valuePerDay
+        car.acessories = acessories
+        car.numberOfPassengers = numberOfPassengers
+
+        await carRepository.save(car);
+
+        return car;
+    }
+
+
+
 }
 
 export default CarService;
