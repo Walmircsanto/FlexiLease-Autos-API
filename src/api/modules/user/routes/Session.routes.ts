@@ -11,8 +11,8 @@ sessionRouter.post(
     sessionController.create,
     celebrate({
         [Segments.BODY]: Joi.object().keys({
-            email: Joi.number().required(),
-            password: Joi.number().required(),
+            email: Joi.string().required(),
+            password: Joi.string().required(),
         }),
     })
 );
